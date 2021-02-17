@@ -1,0 +1,7 @@
+<mat-selection-list [multiple]="false" *ngIf="isReady">
+    <div mat-subheader>States</div>
+    <mat-list-option (click)="rowSelected(state)" *ngFor="let state of stateWiseData" [value]="selected">
+        <mat-icon mat-list-icon>campaign</mat-icon>
+            {{state.state}} has {{state.active}} active cases
+    </mat-list-option>
+</mat-selection-list>

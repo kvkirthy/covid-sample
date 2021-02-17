@@ -1,0 +1,54 @@
+<mat-card>
+
+    <mat-card-header>
+        <mat-card-title>
+         <button (click)="back()" mat-button><mat-icon>arrow_back_ios</mat-icon> back</button> 
+         Regional Corona Impact
+        </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+        <section>
+            
+            <div>
+                <span>
+                    Data for 
+                </span>
+                <Input [value]="selectedState.state" disabled />
+            </div>
+            <div>
+                <span>
+                    Recovered Patients 
+                </span>
+                <input type=" text" [value]="selectedState.recovered" disabled />
+            </div>            
+            <div>
+                <span>
+                    Active count of cases 
+                </span>
+                <input type=" text" [value]="selectedState.active" disabled />
+            </div>
+            <div>
+                <span>
+                    Last updated at 
+                </span>
+                <input type=" text" [value]="selectedState.lastupdatedtime" disabled />
+            </div>
+        </section>
+        <section>
+            <div>
+                <span>
+                    Reported deaths 
+                </span>
+                <input type=" text" [value]="selectedState.deaths" disabled />
+            </div>            
+            <div>
+                <span>
+                    Migrations 
+                </span>
+               <input type=" text" [value]="selectedState.migratedother" disabled />
+            </div>
+        </section>
+    </mat-card-content>
+    
+
+</mat-card>

@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "ng serve --hmr",  "// 1": "// yarn start (or npm start) uses HMR by default",
+    "start:no-hmr": "ng serve", "// 2": "// if you choose to not use HMR, use this script.",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
@@ -12,10 +13,12 @@
   "private": true,
   "dependencies": {
     "@angular/animations": "~11.2.0",
+    "@angular/cdk": "^11.2.0",
     "@angular/common": "~11.2.0",
     "@angular/compiler": "~11.2.0",
     "@angular/core": "~11.2.0",
     "@angular/forms": "~11.2.0",
+    "@angular/material": "^11.2.0",
     "@angular/platform-browser": "~11.2.0",
     "@angular/platform-browser-dynamic": "~11.2.0",
     "@angular/router": "~11.2.0",
