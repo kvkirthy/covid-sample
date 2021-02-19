@@ -11,8 +11,7 @@ const routes: Routes = [{
   component: StateDetailsComponent
 }, {
   path: '',
-  redirectTo: '/home',
-  pathMatch: 'full'
+  component: StateListComponent
 }];
 
 @NgModule({
