@@ -787,7 +787,6 @@ function StateListComponent_tr_27_Template(rf, ctx) { if (rf & 1) {
 } }
 // import { debug } from 'console';
 class StateListComponent {
-    // data = [];
     constructor(dataSvc, router) {
         this.dataSvc = dataSvc;
         this.router = router;
@@ -800,23 +799,27 @@ class StateListComponent {
         this.sliderMax = "8";
         this.createBubbleChartDataSet = (data) => {
             let newDS = [];
+            let radiusFactor = 0;
+            if (data[0].active > 10000) {
+                radiusFactor = 400;
+            }
+            else if (data[0].active > 1000) {
+                radiusFactor = 50;
+            }
+            else if (data[0].active > 100) {
+                radiusFactor = 10;
+            }
+            else {
+                radiusFactor = 1;
+            }
             data.forEach(d => {
-                if (['total', 'kerala', 'maharashtra'].indexOf(d.state.toLowerCase()) === -1) {
-                    newDS.push({
-                        x: d.deaths / 100000,
-                        y: d.confirmed / 1000000,
-                        r: d.active / 100,
-                        title: d.state
-                    });
-                }
-                else if (['kerala', 'maharashtra'].indexOf(d.state.toLowerCase()) > -1) {
-                    newDS.push({
-                        x: d.deaths / 100000,
-                        y: d.confirmed / 1000000,
-                        r: d.active / 500,
-                        title: d.state
-                    });
-                }
+                newDS.push({
+                    x: d.deaths / 1000,
+                    y: d.confirmed / 1000000,
+                    r: d.active / radiusFactor,
+                    radiusFactor,
+                    title: d.state
+                });
             });
             return newDS;
         };
@@ -827,7 +830,6 @@ class StateListComponent {
                 // backgroundColor: 'green',
                 // borderColor: 'blue',
                 hoverBackgroundColor: 'purple',
-                hoverBorderColor: 'red',
             },
         ];
         this.bubbleChartColors = [
@@ -848,13 +850,26 @@ class StateListComponent {
         ];
         this.bubbleChartOptions = {
             responsive: true,
+            scales: {
+                yAxes: [{
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Confirmed COVID Cases in Million'
+                        }
+                    }],
+                xAxes: [{
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Deaths in Thousands'
+                        }
+                    }]
+            },
             tooltips: {
                 callbacks: {
                     label: (tooltipItem, data) => {
-                        // console.log(tooltipItem, data);
                         let item = data.datasets[0].data[tooltipItem.index];
-                        let activeCasesFactor = ['kerala', 'maharashtra'].indexOf(item['title'].toLowerCase()) < 0 ? 100 : 500;
-                        let message = `${item['title']}. Confirmed cases: ${item['y'] * 1000000}. Active cases: ${item['r'] * activeCasesFactor}. `;
+                        let activeCasesFactor = item['radiusFactor'];
+                        let message = `${item['title']}. Confirmed cases: ${item['y'] * 1000000}. Active cases: ${Math.round(item['r'] * activeCasesFactor)}. `;
                         return message;
                     }
                 }
@@ -901,10 +916,8 @@ class StateListComponent {
         this.dataSvc.getStateWiseData().subscribe(s => {
             this.isReady = true;
             this.sortedOriginal = s.statewise.sort((o1, o2) => o2.active - o1.active);
-            // this.sortedOriginal.map( d => {
-            // });
+            this.sortedOriginal.splice(0, 1); // First element is Total. Remove!
             this.bubbleChartData[0].data = this.createBubbleChartDataSet(this.sortedOriginal);
-            // console.log(this.bubbleChartData);
             this.stateWiseData = this.sortedOriginal;
         });
     }
@@ -1001,8 +1014,7 @@ const routes = [{
         component: _components_state_details_state_details_component__WEBPACK_IMPORTED_MODULE_1__["StateDetailsComponent"]
     }, {
         path: '',
-        redirectTo: '/home',
-        pathMatch: 'full'
+        component: _components_state_list_state_list_component__WEBPACK_IMPORTED_MODULE_2__["StateListComponent"]
     }];
 class AppRoutingModule {
 }
