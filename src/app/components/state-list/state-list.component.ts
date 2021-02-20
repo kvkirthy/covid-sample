@@ -31,9 +31,11 @@ export class StateListComponent implements OnInit {
     let radiusFactor = 0;
 
     if(data[0].active > 10000) {
-      radiusFactor = 400;
+      radiusFactor = 1000;
     } else if(data[0].active > 1000) {
       radiusFactor = 50
+    } else if(data[0].active > 300){
+        radiusFactor = 25;
     } else if(data[0].active > 100){
       radiusFactor = 10;
     } else {

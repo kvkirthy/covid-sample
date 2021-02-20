@@ -10,6 +10,17 @@ mat-slider {
     width: 100%;
 }
 
-.dark-background{
-    background-color: lightsteelblue;
+.arrow-background{
+    background-image: url('/assets/arrows.jpg');
+}
+
+.help-text {
+    text-align: center;
+    color: lightgray;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+img.tilt-image {
+    width: 180px;
 }

@@ -1,28 +1,27 @@
 <div class="row">
     <div class="col-1">
     </div>
-    <div class="col-10">
+    <div class="col-10 d-none d-sm-block">
         <canvas baseChart [datasets]="bubbleChartData" [options]="bubbleChartOptions" [colors]="bubbleChartColors"
             [legend]="bubbleChartLegend" [chartType]="bubbleChartType">
         </canvas>
+        <div class="arrow-background help-text">
+            User slider to zoom in by filtering out top layer
+            <mat-slider color="primary" [min]="sliderMin" [max]="sliderMax" step="1" (change)="sliderChange($event)"></mat-slider>
+        </div>
     </div>
-
+    <div class="d-xs-block d-sm-none help-text">
+        <div>
+            Tilt your phone for visulations of the Covid data (bubble chart).
+        </div>
+            <img class="tilt-image" src="/assets/tilt-phone.gif" alt="">
+    </div>
     <div class="col-1">
     </div>
 
 </div>
 <div class="row">
-    <div class="col-3">
-    </div>
-    <div class="col-6 dark-background">
-        <mat-slider [min]="sliderMin" [max]="sliderMax" step="1" (change)="sliderChange($event)"></mat-slider>
-    </div>
-    <div class="col-3">
-    </div>
-</div>
-<div class="row">
-    <div class="col-2"></div>
-    <div class="col-8">
+    <div class="col-12">
         <table mat-table [dataSource]="stateWiseData" class="mat-elevation-z8">
 
             <!--- Note that these columns can be defined in any order.
@@ -57,5 +56,4 @@
 
         </table>
     </div>
-    <div class="col-2"></div>
 </div>
