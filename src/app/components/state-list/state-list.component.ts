@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { ChartDataSets, ChartOptions, ChartType, ChartPoint } from 'chart.js';
 import { CovidAtState, CovidList } from 'src/app/covid-list.entity';
 import { DataAccessService } from 'src/app/services/data-access.service';
+import { VaccinationRecord } from 'src/app/covid-vaccination.entity';
 // import { debug } from 'console';
 
 @Component({
@@ -25,6 +26,10 @@ export class StateListComponent implements OnInit {
 
   sliderMin = "1";
   sliderMax = "8"
+
+  vacDosesGiven: number;
+  vacDosesPerHundred: number;
+  vacUpdatedDate: Date;
 
   private createBubbleChartDataSet = (data: CovidAtState[]) => {
     let newDS = [];
@@ -153,6 +158,13 @@ export class StateListComponent implements OnInit {
     private router: Router) { }
 
   ngOnInit(): void {
+    this.dataSvc.getCovidVaccinationData().subscribe( (s) => {
+      if(s && s?.length > 0){
+        this.vacDosesGiven = s[0].doesesGiven;
+        this.vacDosesPerHundred = s[0].dosesPerHundred;
+        this.vacUpdatedDate = new Date(s[0].dateModified);
+      }
+    })
     this.dataSvc.getStateWiseData().subscribe( s => {
       this.isReady = true;
       this.sortedOriginal = s.statewise.sort( (o1, o2) => o2.active - o1.active);

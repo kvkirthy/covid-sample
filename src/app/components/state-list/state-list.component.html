@@ -20,6 +20,27 @@
     </div>
 
 </div>
+
+<div class="row">
+    <div class="col-1"></div>
+    <div class="col-10">
+        <mat-card>
+            <mat-card-header>
+                <mat-icon mat-card-avatar>health_and_safety</mat-icon>
+                <mat-card-title>
+                    Vaccinations
+                </mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+                {{vacDosesGiven}} vaccinations provided at {{vacDosesPerHundred}} per hundred. 
+                (Vaccination data updated on - {{vacUpdatedDate}})
+            </mat-card-content>
+        </mat-card>
+        <br>
+    </div>
+    <div class="col-1"></div>
+</div>
+
 <div class="row">
     <div class="col-12">
         <table mat-table [dataSource]="stateWiseData" class="mat-elevation-z8">
