@@ -2,8 +2,12 @@
     <div class="col-1">
     </div>
     <div class="col-10 d-none d-sm-block">
-        <canvas baseChart [datasets]="bubbleChartData" [options]="bubbleChartOptions" [colors]="bubbleChartColors"
-            [legend]="bubbleChartLegend" [chartType]="bubbleChartType">
+        <canvas baseChart 
+            [datasets]="bubbleChartData" 
+            [options]="bubbleChartOptions" 
+            [colors]="bubbleChartColors"
+            [legend]="bubbleChartLegend" 
+            [chartType]="bubbleChartType">
         </canvas>
         <div class="arrow-background help-text">
             User slider to zoom in by filtering out top layer
